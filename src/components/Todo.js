@@ -6,7 +6,7 @@ class Todo extends Component {
             border: '1px solid black',
             width: "35%",
             padding: "1%",
-            'margin-bottom': "1%"
+            marginBottom: "1%"
         }
 
         const isComplete = {
