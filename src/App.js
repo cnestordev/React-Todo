@@ -1,16 +1,66 @@
 import React from 'react';
+import TodoList from './components/TodoList'
+import TodoForm from './components/TodoForm'
 
 class App extends React.Component {
-  // you will need a place to store your state in this component.
-  // design `App` to be the parent component of your application.
-  // this component is going to take care of state, and any change handlers you need to work with your state
-  render() {
-    return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
-      </div>
-    );
-  }
+   constructor() {
+      super()
+      this.state = {
+         todoList: [{
+            title: "You have a new todo list",
+            id: 3838,
+            completed: false
+         }],
+         inputValue: ''
+      }
+   }
+
+   inputHandler = e => {
+      const { value } = e.target
+      this.setState({
+         inputValue: value
+      })
+   }
+
+   handleCheck = id => {
+      const newArr = this.state.todoList.map(item => {
+         if (item.id === id) {
+            console.log("it's a match")
+            return {
+               ...item,
+               completed: !item.completed
+            }
+         }
+         console.log("no match")
+         return item
+      })
+      this.setState({
+         todoList: newArr
+      })
+   }
+
+   submitHandler = e => {
+      e.preventDefault()
+      const newItem = {
+         title: this.state.inputValue,
+         id: Date.now(),
+         completed: false
+      }
+      this.setState({
+         todoList: [newItem, ...this.state.todoList],
+         inputValue: ''
+      })
+   }
+
+   render() {
+      return (
+         <div>
+            <h2>Welcome to your Todo App!</h2>
+            <TodoList check={this.handleCheck} data={this.state.todoList} />
+            <TodoForm value={this.state.inputValue} submitHandler={this.submitHandler} inputHandler={this.inputHandler} />
+         </div>
+      );
+   }
 }
 
 export default App;
