@@ -6,9 +6,11 @@ import color from 'randomcolor'
 class App extends React.Component {
 
    componentDidMount() {
-      this.setState({
-         todoList: JSON.parse(window.localStorage.getItem('listData'))
-      })
+      if (window.localStorage.getItem('listData')) {
+         this.setState({
+            todoList: JSON.parse(window.localStorage.getItem('listData'))
+         })
+      }
    }
 
    componentDidUpdate() {
