@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import TodoList from './components/TodoList'
 import TodoForm from './components/TodoForm'
 import color from 'randomcolor'
@@ -73,8 +73,8 @@ class App extends React.Component {
             <TodoList check={this.handleCheck} data={this.state.todoList} />
             <TodoForm filter={this.handleFilter} value={this.state.inputValue} submitHandler={this.submitHandler} inputHandler={this.inputHandler} />
          </div>
-      );
+      )
    }
 }
 
-export default App;
+export default App
