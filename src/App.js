@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoList from './components/TodoList'
 import TodoForm from './components/TodoForm'
+import color from 'randomcolor'
 
 class App extends React.Component {
 
@@ -20,6 +21,7 @@ class App extends React.Component {
          todoList: [{
             title: "You have a new todo list",
             id: 3838,
+            color: color(),
             completed: false
          }],
          inputValue: ''
@@ -34,17 +36,10 @@ class App extends React.Component {
    }
 
    handleCheck = id => {
-      const newArr = this.state.todoList.map(item => {
-         if (item.id === id) {
-            console.log("it's a match")
-            return {
-               ...item,
-               completed: !item.completed
-            }
-         }
-         console.log("no match")
-         return item
-      })
+      const newArr = this.state.todoList.map(item => item.id === id ?
+         { ...item, completed: !item.completed }
+         :
+         item)
       this.setState({
          todoList: newArr
       })
@@ -55,7 +50,8 @@ class App extends React.Component {
       const newItem = {
          title: this.state.inputValue,
          id: Date.now(),
-         completed: false
+         completed: false,
+         color: color({ luminosity: "bright" })
       }
       this.setState({
          todoList: [...this.state.todoList, newItem],
@@ -73,7 +69,7 @@ class App extends React.Component {
    render() {
       return (
          <div>
-            <h2>Welcome to your Todo App!</h2>
+            <h2 style={{ color: '#fff' }}>Welcome to your Todo App!</h2>
             <TodoList check={this.handleCheck} data={this.state.todoList} />
             <TodoForm filter={this.handleFilter} value={this.state.inputValue} submitHandler={this.submitHandler} inputHandler={this.inputHandler} />
          </div>
